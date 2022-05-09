@@ -1,12 +1,12 @@
-package com.dmcdev.springboot.repository;
+package com.dmcdev.springboot.integration;
 
 import com.dmcdev.springboot.model.Employee;
 import com.dmcdev.springboot.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
@@ -15,7 +15,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class EmployeeRepositoryTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class EmployeeRepositoryIT {
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -28,6 +29,7 @@ public class EmployeeRepositoryTest {
                 .lastName("Comolet")
                 .email("comolet@mail.com")
                 .build();
+        employeeRepository.deleteAll();
     }
 
     @DisplayName("JUnit test for save employee operation")
