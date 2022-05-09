@@ -102,27 +102,39 @@ class EmployeeServiceTest {
 
     @DisplayName("JUnit Test for get employee by its id method")
     @Test
-    public void givenEmployeeObject_whenGetEmployeeById_thenReturnEmployeeObject() {
+    public void givenEmployeeId_whenGetEmployeeById_thenReturnEmployeeObject() {
         //given
         given(employeeRepository.findById(1L)).willReturn(Optional.of(employee1));
         //when
-        Employee employee = employeeService.getEmployeeById(employee1.getId());
+        Employee employee = employeeService.getEmployeeById(employee1.getId()).get();
         //then
         assertThat(employee).isNotNull();
         assertThat(employee.getEmail()).isEqualTo("comolet@mail.com");
     }
 
-    @DisplayName("JUnit Test for get employee by its id method which return an exception")
-    @Test
-    public void givenNonExistingId_whenGetEmployeeById_thenReturnReourceNotFoundException() {
-        //given
-        given(employeeRepository.findById(anyLong())).willReturn(Optional.empty());
-        Long id = 1L;
-        //when
-        Exception e = assertThrows(ResourceNotFoundException.class, () -> employeeService.getEmployeeById(id));
-        //then
-        assertThat(e.getMessage()).contains(id.toString());
-    }
+//    @DisplayName("JUnit Test for get employee by its id method")
+//    @Test
+//    public void givenEmployeeId_whenGetEmployeeById_thenReturnEmployeeObject() {
+//        //given
+//        given(employeeRepository.findById(1L)).willReturn(Optional.of(employee1));
+//        //when
+//        Employee employee = employeeService.getEmployeeById(employee1.getId());
+//        //then
+//        assertThat(employee).isNotNull();
+//        assertThat(employee.getEmail()).isEqualTo("comolet@mail.com");
+//    }
+//
+//    @DisplayName("JUnit Test for get employee by its id method which return an exception")
+//    @Test
+//    public void givenNonExistingId_whenGetEmployeeById_thenReturnReourceNotFoundException() {
+//        //given
+//        given(employeeRepository.findById(anyLong())).willReturn(Optional.empty());
+//        Long id = 1L;
+//        //when
+//        Exception e = assertThrows(ResourceNotFoundException.class, () -> employeeService.getEmployeeById(id));
+//        //then
+//        assertThat(e.getMessage()).contains(id.toString());
+//    }
 
     @DisplayName("JUnit Test for update employee method")
     @Test

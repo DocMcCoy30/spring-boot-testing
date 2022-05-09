@@ -35,13 +35,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeById(Long id) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-        if (employeeOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Employee with id " + id + " was not found.");
-        }
-        return employeeOptional.get();
+    public Optional<Employee> getEmployeeById(Long id) {
+        return employeeRepository.findById(id);
     }
+
+//    @Override
+//    public Employee getEmployeeById(Long id) {
+//        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+//        if (employeeOptional.isEmpty()) {
+//            throw new ResourceNotFoundException("Employee with id " + id + " was not found.");
+//        }
+//        return employeeOptional.get();
+//    }
 
     @Override
     public Employee updateEmployee(Employee employeeToUpdate) {
